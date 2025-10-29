@@ -19,6 +19,170 @@ body {
     padding: 24px 16px;
     position: relative;
     overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* 白天模式 */
+body.light-mode {
+    background: radial-gradient(circle at top, rgba(59, 130, 246, 0.06), transparent 55%) fixed,
+                radial-gradient(circle at bottom, rgba(16, 185, 129, 0.08), transparent 50%) fixed,
+                #f8fafc;
+    color: #1e293b;
+}
+
+body.light-mode .background-glow {
+    background: radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.12), transparent 45%),
+                radial-gradient(circle at 80% 0%, rgba(250, 204, 21, 0.08), transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.08), transparent 50%);
+}
+
+body.light-mode .converter-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.9));
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .rate-display {
+    background: linear-gradient(135deg, rgba(241, 245, 249, 0.9), rgba(226, 232, 240, 0.9));
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+body.light-mode .rate-value {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+body.light-mode .switch-btn {
+    background: rgba(59, 130, 246, 0.1);
+    color: #1e40af;
+    border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+body.light-mode .switch-btn:hover {
+    background: rgba(59, 130, 246, 0.18);
+    border-color: rgba(59, 130, 246, 0.35);
+}
+
+body.light-mode .rate-label,
+body.light-mode .last-updated {
+    color: #64748b;
+}
+
+body.light-mode .input-group label {
+    color: #475569;
+}
+
+body.light-mode .currency-symbol {
+    color: #3b82f6;
+}
+
+body.light-mode .input-wrapper input {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: #1e293b;
+}
+
+body.light-mode .input-wrapper input::placeholder {
+    color: #94a3b8;
+}
+
+body.light-mode .input-wrapper input:focus {
+    border-color: rgba(59, 130, 246, 0.35);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+body.light-mode .input-wrapper input[readonly] {
+    background: rgba(248, 250, 252, 0.85);
+    color: #475569;
+}
+
+body.light-mode .refresh-btn {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(59, 130, 246, 0.1));
+    color: #1e40af;
+    border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+body.light-mode .refresh-btn:hover {
+    box-shadow: 0 12px 24px rgba(59, 130, 246, 0.18);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.24), rgba(59, 130, 246, 0.14));
+}
+
+body.light-mode header h1 {
+    color: #1e293b;
+}
+
+body.light-mode .subtitle {
+    color: #64748b;
+}
+
+body.light-mode footer {
+    color: #64748b;
+}
+
+/* 主题切换按钮 */
+.theme-toggle-footer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.theme-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #f4f4f5;
+}
+
+.theme-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.light-mode .theme-btn {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #1e293b;
+}
+
+.light-mode .theme-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+.footer-text {
+    text-align: center;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+}
+
+.sun-icon, .moon-icon {
+    transition: all 0.3s ease;
+}
+
+.moon-icon {
+    display: block;
+}
+
+.sun-icon {
+    display: none;
+}
+
+.light-mode .sun-icon {
+    display: block;
+}
+
+.light-mode .moon-icon {
+    display: none;
 }
 
 .background-glow {
@@ -407,8 +571,10 @@ footer {
     text-align: center;
     padding: 16px 16px 0;
     color: #a1a1aa;
-    font-size: 0.9rem;
-    letter-spacing: 0.04em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
 }
 
 /* 交互反馈 */

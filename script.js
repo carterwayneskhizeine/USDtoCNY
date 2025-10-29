@@ -3,6 +3,7 @@ let currentUsdToCnyRate = 0; // USD → CNY 汇率
 let currentCnyToUsdRate = 0; // CNY → USD 汇率
 let isUpdatingRate = false;
 let isUsdToCny = true; // true: USD → CNY, false: CNY → USD
+let isDarkMode = true; // 主题状态
 
 // DOM元素
 const fromAmountInput = document.getElementById('fromAmount');
@@ -16,6 +17,7 @@ const rateLabelElement = document.getElementById('rateLabel');
 const lastUpdatedElement = document.getElementById('lastUpdated');
 const refreshButton = document.getElementById('refreshRate');
 const switchDirectionButton = document.getElementById('switchDirection');
+const themeToggleBtn = document.getElementById('themeToggle');
 const conversionArrow = document.getElementById('conversionArrow');
 const arrowIcon = document.getElementById('arrowIcon');
 const quickButtons = document.querySelectorAll('.quick-btn');
@@ -28,6 +30,7 @@ const BACKUP_CNY_API = 'https://api.fxratesapi.com/latest?base=CNY&symbols=USD';
 
 // 初始化
 document.addEventListener('DOMContentLoaded', function() {
+    initializeTheme();
     initializeConverter();
     setupEventListeners();
 });
@@ -40,18 +43,21 @@ async function initializeConverter() {
 
 // 设置事件监听器
 function setupEventListeners() {
+    // 主题切换按钮
+    themeToggleBtn.addEventListener('click', toggleTheme);
+
     // 输入框事件
     fromAmountInput.addEventListener('input', handleFromAmountInput);
     fromAmountInput.addEventListener('focus', function() {
         this.select();
     });
-    
+
     // 切换方向按钮
     switchDirectionButton.addEventListener('click', switchConversionDirection);
-    
+
     // 转换箭头点击
     conversionArrow.addEventListener('click', switchConversionDirection);
-    
+
     // 刷新按钮事件
     refreshButton.addEventListener('click', handleRefreshRate);
     
@@ -485,6 +491,43 @@ style.textContent = `
         }
     }
 `;
+
+// 初始化主题
+function initializeTheme() {
+    // 从localStorage读取保存的主题设置
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        isDarkMode = false;
+        document.body.classList.add('light-mode');
+    } else {
+        isDarkMode = true;
+        document.body.classList.remove('light-mode');
+    }
+}
+
+// 切换主题
+function toggleTheme() {
+    isDarkMode = !isDarkMode;
+
+    if (isDarkMode) {
+        document.body.classList.remove('light-mode');
+        localStorage.setItem('theme', 'dark');
+        showNotification('已切换至夜间模式', 'info');
+    } else {
+        document.body.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        showNotification('已切换至白天模式', 'info');
+    }
+
+    // 添加按钮动画
+    themeToggleBtn.style.transform = 'scale(0.9) rotate(180deg)';
+    setTimeout(() => {
+        themeToggleBtn.style.transform = 'scale(1) rotate(360deg)';
+        setTimeout(() => {
+            themeToggleBtn.style.transform = '';
+        }, 150);
+    }, 150);
+}
 
 // 格式化数字，去除末尾的0
 function formatNumber(num) {
