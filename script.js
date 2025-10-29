@@ -108,7 +108,7 @@ function performConversion(amount) {
             showError('汇率数据未加载，请稍后再试');
             return;
         }
-        result = (amount * rate).toFixed(2);
+        result = formatNumber((amount * rate).toFixed(14));
     } else {
         // CNY → USD
         rate = currentCnyToUsdRate;
@@ -116,7 +116,7 @@ function performConversion(amount) {
             showError('汇率数据未加载，请稍后再试');
             return;
         }
-        result = (amount * rate).toFixed(4);
+        result = formatNumber((amount * rate).toFixed(14));
     }
     
     toAmountInput.value = result;
@@ -172,7 +172,7 @@ function updateUI() {
         
         // 更新汇率显示
         if (currentUsdToCnyRate > 0) {
-            currentRateElement.textContent = `1 USD = ${currentUsdToCnyRate.toFixed(4)} CNY`;
+            currentRateElement.textContent = `1 USD = ${currentUsdToCnyRate.toFixed(2)} CNY`;
         }
     } else {
         // CNY → USD 模式
@@ -189,7 +189,7 @@ function updateUI() {
         
         // 更新汇率显示
         if (currentCnyToUsdRate > 0) {
-            currentRateElement.textContent = `1 CNY = ${currentCnyToUsdRate.toFixed(4)} USD`;
+            currentRateElement.textContent = `1 CNY = ${currentCnyToUsdRate.toFixed(2)} USD`;
         }
     }
     
@@ -307,10 +307,10 @@ function getSimulatedRate(type) {
     
     if (type === 'USD_TO_CNY') {
         const baseRate = 7.2; // 大约1 USD = 7.2 CNY
-        return Math.round((baseRate + variation) * 10000) / 10000;
+        return Math.round((baseRate + variation) * 100000000000000) / 100000000000000;
     } else {
         const baseRate = 0.14; // 大约1 CNY = 0.14 USD
-        return Math.round((baseRate + variation * 0.01) * 10000) / 10000;
+        return Math.round((baseRate + variation * 0.01) * 100000000000000) / 100000000000000;
     }
 }
 
@@ -321,9 +321,9 @@ function updateExchangeRates(usdToCny, cnyToUsd) {
     
     // 根据当前转换方向显示对应汇率
     if (isUsdToCny) {
-        currentRateElement.textContent = `1 USD = ${usdToCny.toFixed(4)} CNY`;
+        currentRateElement.textContent = `1 USD = ${usdToCny.toFixed(2)} CNY`;
     } else {
-        currentRateElement.textContent = `1 CNY = ${cnyToUsd.toFixed(4)} USD`;
+        currentRateElement.textContent = `1 CNY = ${cnyToUsd.toFixed(2)} USD`;
     }
     
     const now = new Date();
@@ -485,4 +485,11 @@ style.textContent = `
         }
     }
 `;
+
+// 格式化数字，去除末尾的0
+function formatNumber(num) {
+    // 转换为字符串并去除末尾的0
+    return parseFloat(num).toString().replace(/\.?0+$/, '');
+}
+
 document.head.appendChild(style);
