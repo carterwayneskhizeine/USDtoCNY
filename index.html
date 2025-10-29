@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDtoCNY</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <div class="background-glow"></div>
+    <div class="container">
+        <header class="header">
+        </header>
+
+        <main class="content">
+            <section class="converter-card">
+                <div class="rate-display">
+                    <div class="rate-info">
+                        <span class="rate-label" id="rateLabel">当前汇率 (USD 转 CNY)</span>
+                        <span class="rate-value" id="currentRate">加载中...</span>
+                    </div>
+                    <div class="rate-controls">
+                        <button id="switchDirection" class="switch-btn" type="button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M8 3L4 7L8 11M16 13L20 17L16 21M4 7H16M20 17H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            切换方向
+                        </button>
+                    </div>
+                    <div class="last-updated">
+                        <span id="lastUpdated">正在获取最新汇率...</span>
+                    </div>
+                </div>
+
+                <div class="converter-form">
+                    <div class="input-group">
+                        <label for="fromAmount" id="fromLabel">美元金额 (USD)</label>
+                        <div class="input-wrapper">
+                            <span class="currency-symbol" id="fromSymbol">$</span>
+                            <input type="number" id="fromAmount" placeholder="输入美元金额" min="0" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="toAmount" id="toLabel">人民币金额 (CNY)</label>
+                        <div class="input-wrapper">
+                            <span class="currency-symbol" id="toSymbol">¥</span>
+                            <input type="number" id="toAmount" placeholder="结果将自动计算" readonly>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="converter-actions">
+                    <button id="refreshRate" class="refresh-btn" type="button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M1 4V10H7M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M3.51 15A9 9 0 0 0 18.36 18.36L23 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        刷新汇率
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            © 2025 汇率助手 · 实时更新的双向转换工具
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
