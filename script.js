@@ -114,7 +114,7 @@ function performConversion(amount) {
             showError('汇率数据未加载，请稍后再试');
             return;
         }
-        result = formatNumber((amount * rate).toFixed(14));
+        result = formatNumber((amount * rate).toFixed(4));
     } else {
         // CNY → USD
         rate = currentCnyToUsdRate;
@@ -122,7 +122,7 @@ function performConversion(amount) {
             showError('汇率数据未加载，请稍后再试');
             return;
         }
-        result = formatNumber((amount * rate).toFixed(14));
+        result = formatNumber((amount * rate).toFixed(4));
     }
     
     toAmountInput.value = result;
