@@ -56,7 +56,9 @@ function setupEventListeners() {
     switchDirectionButton.addEventListener('click', switchConversionDirection);
 
     // 转换箭头点击
-    conversionArrow.addEventListener('click', switchConversionDirection);
+    if (conversionArrow) {
+        conversionArrow.addEventListener('click', switchConversionDirection);
+    }
 
     // 刷新按钮事件
     refreshButton.addEventListener('click', handleRefreshRate);
@@ -146,11 +148,15 @@ function switchConversionDirection() {
     updateUI();
     
     // 添加切换动画
-    const arrow = conversionArrow.querySelector('svg');
-    arrow.style.transform = 'rotate(180deg)';
-    setTimeout(() => {
-        arrow.style.transform = '';
-    }, 300);
+    if (conversionArrow) {
+        const arrow = conversionArrow.querySelector('svg');
+        if (arrow) {
+            arrow.style.transform = 'rotate(180deg)';
+            setTimeout(() => {
+                arrow.style.transform = '';
+            }, 300);
+        }
+    }
     
     // 按钮动画
     switchDirectionButton.style.transform = 'scale(0.95)';
@@ -174,7 +180,9 @@ function updateUI() {
         rateLabelElement.textContent = '当前汇率 (USD → CNY):';
         
         // 更新箭头方向
-        arrowIcon.innerHTML = '<path d="M7 13L12 18L17 13M7 6L12 11L17 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+        if (arrowIcon) {
+            arrowIcon.innerHTML = '<path d="M7 13L12 18L17 13M7 6L12 11L17 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+        }
         
         // 更新汇率显示
         if (currentUsdToCnyRate > 0) {
@@ -191,7 +199,9 @@ function updateUI() {
         rateLabelElement.textContent = '当前汇率 (CNY → USD):';
         
         // 更新箭头方向
-        arrowIcon.innerHTML = '<path d="M17 11L12 6L7 11M17 18L12 13L7 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+        if (arrowIcon) {
+            arrowIcon.innerHTML = '<path d="M17 11L12 6L7 11M17 18L12 13L7 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+        }
         
         // 更新汇率显示
         if (currentCnyToUsdRate > 0) {
@@ -367,6 +377,7 @@ async function handleRefreshRate() {
     }, 600);
     
     await fetchExchangeRate();
+    showNotification('汇率已刷新', 'info');
 }
 
 // 显示加载状态
