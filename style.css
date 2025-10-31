@@ -165,6 +165,31 @@ body.light-mode footer {
     letter-spacing: 0.04em;
 }
 
+.github-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #a1a1aa;
+    transition: all 0.3s ease;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.github-link:hover {
+    color: #fafaf9;
+    transform: scale(1.1) rotate(5deg);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.light-mode .github-link {
+    color: #64748b;
+}
+
+.light-mode .github-link:hover {
+    color: #1e293b;
+    background: rgba(0, 0, 0, 0.05);
+}
+
 .sun-icon, .moon-icon {
     transition: all 0.3s ease;
 }

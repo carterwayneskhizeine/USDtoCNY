@@ -542,8 +542,8 @@ function toggleTheme() {
 
 // 格式化数字，去除末尾的0
 function formatNumber(num) {
-    // 转换为字符串并去除末尾的0
-    return parseFloat(num).toString().replace(/\.?0+$/, '');
+    // 转换为字符串并去除小数点后末尾的0
+    return parseFloat(num).toString().replace(/(\.[0-9]*[1-9])0+$|\.(0+)$/, '$1');
 }
 
 document.head.appendChild(style);
