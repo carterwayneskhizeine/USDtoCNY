@@ -23,6 +23,8 @@ const arrowIcon = document.getElementById('arrowIcon');
 const quickButtons = document.querySelectorAll('.quick-btn');
 const customInput = document.getElementById('customInput');
 const customOutput = document.getElementById('customOutput');
+const toggleCustomSectionBtn = document.getElementById('toggleCustomSection');
+const customSection = document.getElementById('customSection');
 
 // API配置
 const USD_API_URL = 'https://api.exchangerate-api.com/v4/latest/USD';
@@ -97,6 +99,7 @@ function setupEventListeners() {
     });
 
     customInput.addEventListener('input', handleCustomInput);
+    toggleCustomSectionBtn.addEventListener('click', toggleCustomSection);
 }
 
 // 处理输入金额变化
@@ -560,6 +563,11 @@ function handleCustomInput(event) {
     // Use toFixed with sufficient precision to avoid scientific notation,
     // then use a regex to remove trailing zeros.
     customOutput.value = result.toFixed(20).replace(/(\.[0-9]*[1-9])0+$|\.(0+)$/, '$1');
+}
+
+function toggleCustomSection() {
+    toggleCustomSectionBtn.classList.toggle('active');
+    customSection.classList.toggle('open');
 }
 
 document.head.appendChild(style);

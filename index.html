@@ -63,20 +63,30 @@
                     </button>
                 </div>
 
-                <div class="divider-section"></div>
+                <div class="collapsible-header">
+                    <button id="toggleCustomSection" class="toggle-btn" type="button">
+                        <span>M Tokens to Per Token</span>
+                        <svg class="chevron-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
 
-                <div class="custom-divider-form">
-                    <div class="input-group">
-                        <label for="customInput">Cost</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="customInput" placeholder="输入任意值">
+                <div id="customSection" class="collapsible-content">
+                    <div class="divider-section"></div>
+                    <div class="custom-divider-form">
+                        <div class="input-group">
+                            <label for="customInput">Cost M Tokens</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="customInput" placeholder="输入任意值">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="input-group">
-                        <label for="customOutput">Cost_Per_Token</label>
-                        <div class="input-wrapper">
-                            <input type="number" id="customOutput" placeholder="结果将自动计算" readonly>
+                        <div class="input-group">
+                            <label for="customOutput">Cost Per Token</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="customOutput" placeholder="结果将自动计算" readonly>
+                            </div>
                         </div>
                     </div>
                 </div>
