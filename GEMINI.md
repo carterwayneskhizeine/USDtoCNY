@@ -20,6 +20,7 @@ The application follows a simple client-side architecture:
     *   Handling user input and performing currency conversions.
     *   Managing the application state (e.g., conversion direction, theme).
     *   Updating the UI dynamically.
+*   **M Tokens to Per Token Converter:** A collapsible section that allows users to input a "Cost M Tokens" value and automatically calculates "Cost Per Token" by dividing the input by 1,000,000.
 
 ## Building and Running
 
