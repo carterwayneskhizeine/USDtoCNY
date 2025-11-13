@@ -21,6 +21,8 @@ const themeToggleBtn = document.getElementById('themeToggle');
 const conversionArrow = document.getElementById('conversionArrow');
 const arrowIcon = document.getElementById('arrowIcon');
 const quickButtons = document.querySelectorAll('.quick-btn');
+const customInput = document.getElementById('customInput');
+const customOutput = document.getElementById('customOutput');
 
 // API配置
 const USD_API_URL = 'https://api.exchangerate-api.com/v4/latest/USD';
@@ -93,6 +95,8 @@ function setupEventListeners() {
             switchConversionDirection();
         }
     });
+
+    customInput.addEventListener('input', handleCustomInput);
 }
 
 // 处理输入金额变化
@@ -544,6 +548,18 @@ function toggleTheme() {
 function formatNumber(num) {
     // 转换为字符串并去除小数点后末尾的0
     return parseFloat(num).toString().replace(/(\.[0-9]*[1-9])0+$|\.(0+)$/, '$1');
+}
+
+function handleCustomInput(event) {
+    const value = parseFloat(event.target.value);
+    if (isNaN(value)) {
+        customOutput.value = '';
+        return;
+    }
+    const result = value / 1000000;
+    // Use toFixed with sufficient precision to avoid scientific notation,
+    // then use a regex to remove trailing zeros.
+    customOutput.value = result.toFixed(20).replace(/(\.[0-9]*[1-9])0+$|\.(0+)$/, '$1');
 }
 
 document.head.appendChild(style);

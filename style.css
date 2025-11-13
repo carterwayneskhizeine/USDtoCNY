@@ -673,3 +673,17 @@ input:focus-visible {
         padding: 24px;
     }
 }
+
+.divider-section {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 24px 0;
+}
+
+.light-mode .divider-section {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.custom-divider-form .input-wrapper input {
+    padding-left: 18px;
+}
