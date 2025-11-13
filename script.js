@@ -607,7 +607,7 @@ function handleStorageInput(event) {
     if (result === null) {
         storageOutput.value = '无效的输入格式';
     } else {
-        storageOutput.value = result.toLocaleString() + ' 字节';
+        storageOutput.value = result.toString();
     }
 }
 
