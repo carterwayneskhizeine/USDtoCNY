@@ -25,6 +25,8 @@ const customInput = document.getElementById('customInput');
 const customOutput = document.getElementById('customOutput');
 const toggleCustomSectionBtn = document.getElementById('toggleCustomSection');
 const customSection = document.getElementById('customSection');
+const storageInput = document.getElementById('storageInput');
+const storageOutput = document.getElementById('storageOutput');
 
 // API配置
 const USD_API_URL = 'https://api.exchangerate-api.com/v4/latest/USD';
@@ -100,6 +102,7 @@ function setupEventListeners() {
 
     customInput.addEventListener('input', handleCustomInput);
     toggleCustomSectionBtn.addEventListener('click', toggleCustomSection);
+    storageInput.addEventListener('input', handleStorageInput);
 }
 
 // 处理输入金额变化
@@ -568,6 +571,44 @@ function handleCustomInput(event) {
 function toggleCustomSection() {
     toggleCustomSectionBtn.classList.toggle('active');
     customSection.classList.toggle('open');
+}
+
+function convertToComputerStorage(sizeStr) {
+    // Convert to uppercase for consistent processing
+    sizeStr = sizeStr.toUpperCase().trim();
+    
+    // Determine the unit
+    if (sizeStr.includes('K')) {
+        // Handle K unit (1K = 1024)
+        const number = parseFloat(sizeStr.replace('K', ''));
+        if (isNaN(number)) return null;
+        return Math.floor(number * 1024);
+    } else if (sizeStr.includes('M')) {
+        // Handle M unit (1M = 1024K = 1024*1024)
+        const number = parseFloat(sizeStr.replace('M', ''));
+        if (isNaN(number)) return null;
+        return Math.floor(number * 1024 * 1024);
+    } else {
+        // If no unit, assume it's already in bytes
+        const number = parseFloat(sizeStr);
+        if (isNaN(number)) return null;
+        return Math.floor(number);
+    }
+}
+
+function handleStorageInput(event) {
+    const value = event.target.value.trim();
+    if (!value) {
+        storageOutput.value = '';
+        return;
+    }
+    
+    const result = convertToComputerStorage(value);
+    if (result === null) {
+        storageOutput.value = '无效的输入格式';
+    } else {
+        storageOutput.value = result.toLocaleString() + ' 字节';
+    }
 }
 
 document.head.appendChild(style);
