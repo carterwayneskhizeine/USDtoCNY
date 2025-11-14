@@ -576,18 +576,36 @@ function toggleCustomSection() {
 function convertToComputerStorage(sizeStr) {
     // Convert to uppercase for consistent processing
     sizeStr = sizeStr.toUpperCase().trim();
-    
-    // Determine the unit
-    if (sizeStr.includes('K')) {
-        // Handle K unit (1K = 1024)
-        const number = parseFloat(sizeStr.replace('K', ''));
+
+    // Regular expression to extract the number and unit (K, M, G, T)
+    const regex = /^([0-9.]+)\s*([KMGTP])$/;
+    const match = sizeStr.match(regex);
+
+    if (match) {
+        const number = parseFloat(match[1]);
+        const unit = match[2];
+
         if (isNaN(number)) return null;
-        return Math.floor(number * 1024);
-    } else if (sizeStr.includes('M')) {
-        // Handle M unit (1M = 1024K = 1024*1024)
-        const number = parseFloat(sizeStr.replace('M', ''));
-        if (isNaN(number)) return null;
-        return Math.floor(number * 1024 * 1024);
+
+        switch (unit) {
+            case 'K':
+                // Handle K unit (1K = 1000)
+                return Math.floor(number * 1000);
+            case 'M':
+                // Handle M unit (1M = 1000K = 1000*1000)
+                return Math.floor(number * 1000 * 1000);
+            case 'G':
+                // Handle G unit (1G = 1000M = 1000*1000*1000)
+                return Math.floor(number * 1000 * 1000 * 1000);
+            case 'T':
+                // Handle T unit (1T = 1000G = 1000*1000*1000*1000)
+                return Math.floor(number * 1000 * 1000 * 1000 * 1000);
+            case 'P':
+                // Handle P unit (1P = 1000T = 1000*1000*1000*1000*1000)
+                return Math.floor(number * 1000 * 1000 * 1000 * 1000 * 1000);
+            default:
+                return null;
+        }
     } else {
         // If no unit, assume it's already in bytes
         const number = parseFloat(sizeStr);
