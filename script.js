@@ -27,6 +27,10 @@ const toggleCustomSectionBtn = document.getElementById('toggleCustomSection');
 const customSection = document.getElementById('customSection');
 const storageInput = document.getElementById('storageInput');
 const storageOutput = document.getElementById('storageOutput');
+const pasteCustomInputBtn = document.getElementById('pasteCustomInput');
+const copyCustomOutputBtn = document.getElementById('copyCustomOutput');
+const pasteStorageInputBtn = document.getElementById('pasteStorageInput');
+const copyStorageOutputBtn = document.getElementById('copyStorageOutput');
 
 // API配置
 const USD_API_URL = 'https://api.exchangerate-api.com/v4/latest/USD';
@@ -103,6 +107,12 @@ function setupEventListeners() {
     customInput.addEventListener('input', handleCustomInput);
     toggleCustomSectionBtn.addEventListener('click', toggleCustomSection);
     storageInput.addEventListener('input', handleStorageInput);
+
+    // Paste and Copy Button Events
+    pasteCustomInputBtn.addEventListener('click', () => pasteToInput(customInput));
+    copyCustomOutputBtn.addEventListener('click', () => copyFromOutput(customOutput));
+    pasteStorageInputBtn.addEventListener('click', () => pasteToInput(storageInput));
+    copyStorageOutputBtn.addEventListener('click', () => copyFromOutput(storageOutput));
 }
 
 // 处理输入金额变化
@@ -626,6 +636,55 @@ function handleStorageInput(event) {
         storageOutput.value = '无效的输入格式';
     } else {
         storageOutput.value = result.toString();
+    }
+}
+
+// Paste content to input field
+async function pasteToInput(inputElement) {
+    try {
+        const text = await navigator.clipboard.readText();
+        inputElement.value = text;
+
+        // Trigger input event to update calculations
+        inputElement.dispatchEvent(new Event('input'));
+
+        // Visual feedback
+        const originalBg = inputElement.style.background;
+        inputElement.style.background = isDarkMode ? 'rgba(250, 204, 21, 0.2)' : 'rgba(250, 204, 21, 0.15)';
+        setTimeout(() => {
+            inputElement.style.background = originalBg;
+        }, 300);
+
+        showNotification('已粘贴剪贴板内容', 'info');
+    } catch (err) {
+        console.error('无法访问剪贴板:', err);
+        showNotification('粘贴失败，请检查权限', 'error');
+    }
+}
+
+// Copy content from output field
+async function copyFromOutput(outputElement) {
+    const text = outputElement.value;
+
+    if (!text) {
+        showNotification('没有内容可复制', 'warning');
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(text);
+
+        // Visual feedback
+        const originalBg = outputElement.style.background;
+        outputElement.style.background = isDarkMode ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.15)';
+        setTimeout(() => {
+            outputElement.style.background = originalBg;
+        }, 300);
+
+        showNotification('结果已复制到剪贴板', 'info');
+    } catch (err) {
+        console.error('无法复制到剪贴板:', err);
+        showNotification('复制失败，请检查权限', 'error');
     }
 }
 

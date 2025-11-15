@@ -620,6 +620,18 @@ footer {
     }
 }
 
+/* Hide numeric spin buttons */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
 .error {
     color: #fca5a5;
     background-color: rgba(127, 29, 29, 0.25);
@@ -686,6 +698,62 @@ input:focus-visible {
 
 .custom-divider-form .input-wrapper input {
     padding-left: 18px;
+}
+
+/* Paste and Copy Buttons */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper button {
+    position: absolute;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #f4f4f5;
+    z-index: 2;
+}
+
+.input-wrapper button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.input-wrapper button svg {
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+}
+
+.light-mode .input-wrapper button {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #1e293b;
+}
+
+.light-mode .input-wrapper button:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Adjust input padding to make space for buttons */
+#customInput, #storageInput {
+    padding-right: 52px;
+}
+
+#customOutput, #storageOutput {
+    padding-right: 52px;
 }
 
 .storage-divider {
